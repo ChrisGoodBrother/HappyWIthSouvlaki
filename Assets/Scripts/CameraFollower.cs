@@ -11,7 +11,7 @@ public class CameraFollower : MonoBehaviour
    private void Update() {
         Vector3 cameraPosition = transform.position;
         cameraPosition.x = player.position.x;
-        if(!(cameraPosition.x <= -9))
+        if(!(cameraPosition.x <= -14))
             transform.position = cameraPosition; 
    }
 }
