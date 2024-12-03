@@ -12,8 +12,8 @@ public class EnemeyMovement : MonoBehaviour
 
     private void Awake() {
         enemyBody = GetComponent<Rigidbody2D>();
-        enemySpeed = 7;
-        enemyJumpHeight = 13;
+        enemySpeed = 9;
+        enemyJumpHeight = 15;
         animator = GetComponent<Animator>();
         boxCollider2D = GetComponent<BoxCollider2D>();
     }
