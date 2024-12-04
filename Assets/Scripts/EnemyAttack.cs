@@ -5,6 +5,9 @@ using UnityEngine;
 public class NewBehaviourScript : MonoBehaviour
 {
     [SerializeField] private float attackCooldown;
+    [SerializeField] GameObject knifeObject;
+    [SerializeField] private float spawnOffset;
+    [SerializeField] private Transform knifePos;
     private Animator animate;
     private float cooldownTimer;
 
@@ -12,6 +15,7 @@ public class NewBehaviourScript : MonoBehaviour
         animate = GetComponent<Animator>();
         attackCooldown = 0.3f;
         cooldownTimer = 1000;
+        spawnOffset = 1f;
     }
 
     private void Update() {
@@ -23,7 +27,8 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void Attack() {
         animate.SetTrigger("attack");
+        Vector2 spawnPosition = transform.position + transform.up * spawnOffset;
+        Instantiate(knifeObject, knifePos.position, Quaternion.identity);
         cooldownTimer = 0;
     }
-    
 }
