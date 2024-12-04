@@ -8,18 +8,20 @@ public class NewBehaviourScript : MonoBehaviour
     [SerializeField] GameObject knifeObject;
     [SerializeField] private float spawnOffset;
     [SerializeField] private Transform knifePos;
+    private GameObject player;
     private Animator animate;
     private float cooldownTimer;
 
     private void Awake() {
         animate = GetComponent<Animator>();
-        attackCooldown = 0.3f;
+        player = GameObject.FindGameObjectWithTag("Player");
+        attackCooldown = 1.2f;
         cooldownTimer = 1000;
         spawnOffset = 1f;
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.K) && cooldownTimer > attackCooldown)
+        if(cooldownTimer > attackCooldown)
             Attack();
         
         cooldownTimer += Time.deltaTime;

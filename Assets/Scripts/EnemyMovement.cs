@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemeyMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float enemySpeed;
     [SerializeField] private float enemyJumpHeight;
@@ -9,6 +9,10 @@ public class EnemeyMovement : MonoBehaviour
     private Rigidbody2D enemyBody;
     private Animator animator;
     private BoxCollider2D boxCollider2D;
+    private bool goingRight;
+    private bool goingLeft;
+    [SerializeField] private float switchDirectionChance;
+    [SerializeField] private float jumpChance;
 
     private void Awake() {
         enemyBody = GetComponent<Rigidbody2D>();
@@ -16,26 +20,36 @@ public class EnemeyMovement : MonoBehaviour
         enemyJumpHeight = 15;
         animator = GetComponent<Animator>();
         boxCollider2D = GetComponent<BoxCollider2D>();
+        goingLeft = true;
+        goingRight = false;
+        switchDirectionChance = 0.2f;
+        jumpChance = 0.2f;
     }
 
     private void Update() {
 
-        float horizontalMovement = Input.GetAxis("Horizontal"); //Horizontal "direction"
-
-        enemyBody.velocity = new Vector2(horizontalMovement * enemySpeed, enemyBody.velocity.y); 
-
-        //Flip Enemy Model
-        if(horizontalMovement >= 0.01f)
+        //Move enemy left and right and change sprite direction
+        if(goingRight) {
+            enemyBody.velocity = new Vector2(enemySpeed, enemyBody.velocity.y);
             transform.localScale = Vector3.one;
-        else if(horizontalMovement <= - 0.01f)
+        }
+        else {
+            enemyBody.velocity = new Vector2(-enemySpeed, enemyBody.velocity.y);
             transform.localScale = new Vector3(-1,1,1);
+        }
 
-        if(Input.GetKey(KeyCode.Space) && isGrounded()) {
+        if (Random.value < switchDirectionChance * Time.deltaTime)
+        {
+            goingLeft = !goingLeft;
+            goingRight = !goingRight;
+        }
+
+        if(isGrounded() && Random.value < jumpChance * Time.deltaTime) {
             Jumping();
         }
 
         //Setting Animation Parameters
-        animator.SetBool("run", horizontalMovement != 0);
+        animator.SetBool("run", goingLeft || goingRight);
         animator.SetBool("isgrounded", isGrounded());
     }
 
@@ -49,5 +63,12 @@ public class EnemeyMovement : MonoBehaviour
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
 
         return raycastHit.collider != null;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if(collision.gameObject.CompareTag("BossBorder") || collision.gameObject.CompareTag("Player")) {
+            goingLeft = !goingLeft;
+            goingRight = !goingRight;
+        }
     }
 }
