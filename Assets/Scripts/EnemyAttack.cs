@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
@@ -21,12 +19,13 @@ public class NewBehaviourScript : MonoBehaviour
     }
 
     private void Update() {
-        if(cooldownTimer > attackCooldown)
+        if(cooldownTimer > attackCooldown) //If cooldown timer goes over the attack cooldown then attack
             Attack();
         
         cooldownTimer += Time.deltaTime;
     }
 
+    //Spawn the knife to attack
     private void Attack() {
         animate.SetTrigger("attack");
         Vector2 spawnPosition = transform.position + transform.up * spawnOffset;

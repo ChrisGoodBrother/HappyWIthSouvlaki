@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -20,9 +19,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update() {
 
-        float horizontalMovement = Input.GetAxis("Horizontal"); //Horizontal "direction"
-
-        playerBody.velocity = new Vector2(horizontalMovement * playerSpeed, playerBody.velocity.y); //Move player left and right
+        //Move player left or right according to the input
+        float horizontalMovement = Input.GetAxis("Horizontal"); 
+        playerBody.velocity = new Vector2(horizontalMovement * playerSpeed, playerBody.velocity.y);
 
         //Flip Player Model
         if(horizontalMovement >= 0.01f)
@@ -30,11 +29,12 @@ public class PlayerMovement : MonoBehaviour
         else if(horizontalMovement <= - 0.01f)
             transform.localScale = new Vector3(-1,1,1);
 
+        //Make player jump if player is on the ground and not already jumping
         if(Input.GetKey(KeyCode.Space) && isGrounded()) {
             Jumping();
         }
 
-        //Setting Animation Parameters
+        //Make player run if ShiftKey is pressed
         if(Input.GetKey(KeyCode.LeftShift)) {
             playerBody.velocity = new Vector2(horizontalMovement * playerSpeed * 2, playerBody.velocity.y); //Move player left and right but faster
             animator.SetBool("walk", false);
@@ -48,15 +48,14 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isgrounded", isGrounded());
     }
 
+    //Make player jump
     private void Jumping() {
-        
-        //Make player jump
         playerBody.velocity = new Vector2(playerBody.velocity.x, playerJumpHeight);
         animator.SetTrigger("jump");
     }
 
+    //Check if player is on the ground and not in the air
     private bool isGrounded() {
-
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
 
         return raycastHit.collider != null;
