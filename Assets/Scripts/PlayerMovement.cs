@@ -11,8 +11,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake() {
         playerBody = GetComponent<Rigidbody2D>();
-        playerSpeed = 5;
-        playerJumpHeight = 13;
+        playerSpeed = 5f;
+        playerJumpHeight = 14.5f;
         animator = GetComponent<Animator>();
         boxCollider2D = GetComponent<BoxCollider2D>();
     }
@@ -35,8 +35,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Make player run if ShiftKey is pressed
-        if(Input.GetKey(KeyCode.LeftShift)) {
-            playerBody.velocity = new Vector2(horizontalMovement * playerSpeed * 2, playerBody.velocity.y); //Move player left and right but faster
+        if(Input.GetKey(KeyCode.LeftShift) && horizontalMovement != 0) {
+            playerBody.velocity = new Vector2(horizontalMovement * playerSpeed * 1.5f, playerBody.velocity.y); //Move player left and right but faster
             animator.SetBool("walk", false);
             animator.SetBool("run", true);
         } 
