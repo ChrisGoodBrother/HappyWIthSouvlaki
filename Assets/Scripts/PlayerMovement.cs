@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
         //Make player run if ShiftKey is pressed
         if(Input.GetKey(KeyCode.LeftShift) && horizontalMovement != 0) {
-            playerBody.velocity = new Vector2(horizontalMovement * playerSpeed * 1.5f, playerBody.velocity.y); //Move player left and right but faster
+            playerBody.velocity = new Vector2(horizontalMovement * playerSpeed * 1.7f, playerBody.velocity.y); //Move player left and right but faster
             animator.SetBool("walk", false);
             animator.SetBool("run", true);
         } 
@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Check if player is on the ground and not in the air
     private bool isGrounded() {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, boxCollider2D.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, new Vector2(0.6f, 2) , 0, Vector2.down, 0.1f, groundLayer);
 
         return raycastHit.collider != null;
     }
