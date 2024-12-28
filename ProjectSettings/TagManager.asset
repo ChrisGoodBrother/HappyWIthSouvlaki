@@ -9,6 +9,7 @@ TagManager:
   - BossBorder
   - Souvlaki
   - Door
+  - Ground
   layers:
   - Default
   - TransparentFX
