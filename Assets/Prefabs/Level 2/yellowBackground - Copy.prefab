@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3770636102567442486}
   - component: {fileID: 1760996716543904460}
   m_Layer: 0
-  m_Name: yellowBackground
+  m_Name: yellowBackground - Copy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
