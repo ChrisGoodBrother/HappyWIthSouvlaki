@@ -7,14 +7,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     private Rigidbody2D playerBody;
     private Animator animator;
-    private BoxCollider2D boxCollider2D;
+    private CapsuleCollider2D capsuleCollider2D;
 
     private void Awake() {
         playerBody = GetComponent<Rigidbody2D>();
         playerSpeed = 5f;
         playerJumpHeight = 14.5f;
         animator = GetComponent<Animator>();
-        boxCollider2D = GetComponent<BoxCollider2D>();
+        capsuleCollider2D = GetComponent<CapsuleCollider2D>();
     }
 
     private void Update() {
@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Check if player is on the ground and not in the air
     private bool isGrounded() {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2D.bounds.center, new Vector2(0.6f, 2) , 0, Vector2.down, 0.1f, groundLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(capsuleCollider2D.bounds.center, new Vector2(0.6f, 2) , 0, Vector2.down, 0.1f, groundLayer);
 
         return raycastHit.collider != null;
     }
