@@ -1,8 +1,10 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Knife : MonoBehaviour
 {
     private GameObject player;
+    private Animator animator;
     private Rigidbody2D knifeBody;
     [SerializeField] private float throwSpeed;
     [SerializeField] private float knifeDamage;
@@ -11,8 +13,9 @@ public class Knife : MonoBehaviour
 
     private void Awake() {
         player = GameObject.FindGameObjectWithTag("Player");
+        animator = player.GetComponent<Animator>();
         knifeBody = GetComponent<Rigidbody2D>();
-        playerStats = GetComponent<PlayerStats>();
+        playerStats = player.GetComponent<PlayerStats>();
         throwSpeed = 10f;
         knifeDamage = 10f;
     }
@@ -44,6 +47,10 @@ public class Knife : MonoBehaviour
             if(playerStats != null) {
                 playerStats.take_damage(knifeDamage);
             }
+            animator.SetTrigger("stabbed");
+            Destroy(gameObject);
+        }
+        if(other.gameObject.CompareTag("Ground")) {
             Destroy(gameObject);
         }
     }

@@ -5,12 +5,10 @@ public class Souvlaki : MonoBehaviour
     [SerializeField] private float healthAddition;
     private PlayerStats playerStats;
     private GameObject player;
-    private Animator animator;
 
     private void Awake() {
-        playerStats = GetComponent<PlayerStats>();
         player = GameObject.FindGameObjectWithTag("Player");
-        animator = player.GetComponent<Animator>();
+        playerStats = player.GetComponent<PlayerStats>();
         healthAddition = 10f;
     }
 
@@ -22,7 +20,6 @@ public class Souvlaki : MonoBehaviour
             if(playerStats != null) {
                 playerStats.add_health(healthAddition);
             }
-            animator.SetTrigger("stabbed");
             
             Destroy(gameObject);
         }

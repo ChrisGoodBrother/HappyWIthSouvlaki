@@ -34,11 +34,8 @@ public class PlayerMovement : MonoBehaviour
             Jumping();
         }
 
-        if(Input.GetKey(KeyCode.K) && isGrounded()) {
-            animator.SetBool("fight", true);
-        }
-        else {
-            animator.SetBool("fight", false);
+        if(Input.GetKeyDown(KeyCode.K) && isGrounded() && !animator.GetBool("stabbed")) {
+            animator.SetTrigger("fight");
         }
 
         //Make player run if ShiftKey is pressed
