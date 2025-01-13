@@ -7,24 +7,19 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] public float maxHealth;
     [SerializeField] private float currentHealth;
     private Image healthBarFill;
+    private Animator animator;
+    private bool isAlive;
 
     private void Awake() {
         maxHealth = 100f;
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
     {
+        isAlive = true;
+        animator.SetBool("alive", true);
         currentHealth = 10f; //Starting health
-    }
-
-    private void Update()
-    {
-        UpdateHealthBar();
-    }
-
-    private void UpdateHealthBar()
-    {
-        //healthBarFill.fillAmount = currentHealth / maxHealth;
     }
 
     //Damage Player
@@ -33,8 +28,8 @@ public class PlayerStats : MonoBehaviour
     {
         currentHealth -= damage;
         if (currentHealth < 0) {
-            ;
-            //Destroy(gameObject);
+            animator.SetTrigger("dead");
+            animator.SetBool("alive", false);
         }
     }
 
@@ -46,4 +41,3 @@ public class PlayerStats : MonoBehaviour
             currentHealth = maxHealth;
     }
 }
-

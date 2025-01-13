@@ -34,6 +34,10 @@ public class PlayerMovement : MonoBehaviour
             Jumping();
         }
 
+        if(Input.GetKeyDown(KeyCode.K) && isGrounded() && !animator.GetBool("stabbed")) {
+            animator.SetTrigger("fight");
+        }
+
         //Make player run if ShiftKey is pressed
         if(Input.GetKey(KeyCode.LeftShift) && horizontalMovement != 0) {
             playerBody.velocity = new Vector2(horizontalMovement * playerSpeed * 1.7f, playerBody.velocity.y); //Move player left and right but faster
