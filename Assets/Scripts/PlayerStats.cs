@@ -48,8 +48,8 @@ public class PlayerStats : MonoBehaviour
 
     //Check if player is on the ground and not in the air
     public bool isGrounded() {
-        RaycastHit2D raycastHit = Physics2D.CapsuleCast(capsuleCollider2D.bounds.center, new Vector2(0.6f, 2), CapsuleDirection2D.Vertical, 0f, Vector2.down , 0.1f, groundLayer);
-  
+        RaycastHit2D raycastHit = Physics2D.CapsuleCast(capsuleCollider2D.bounds.center, new Vector2(0.6f, 2), CapsuleDirection2D.Vertical, 0f, Vector2.down, 0.1f, groundLayer);
+
         return raycastHit.collider != null;
     }
 }
