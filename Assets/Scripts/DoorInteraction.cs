@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class DoorInteraction : MonoBehaviour
 {
-    public string targetSceneForLevel2 = "Level_2"; // Όνομα σκηνής για Level 2
-    public string targetSceneForWin = "WinScene"; // Όνομα σκηνής για την WinScene
+    public string targetSceneForLevel2 = "Level_2"; 
+    public string targetSceneForWin = "WinScene"; 
     public Vector3 spawnPointPosition = new Vector3(-10, 0, 0); // Σημείο εκκίνησης στο Level 2
 
     void OnTriggerEnter2D(Collider2D other)
@@ -15,12 +15,12 @@ public class DoorInteraction : MonoBehaviour
 
             if (currentSceneName == targetSceneForLevel2)
             {
-                // Αν βρίσκεστε ήδη στο Level_2, φορτώστε την WinScene
+                // Αν βρίσκομαι ήδη στο Level_2, φόρτωσε την WinScene
                 SceneManager.LoadScene(targetSceneForWin);
             }
             else if (targetSceneForLevel2 != "")
             {
-                // Αν δεν βρίσκεστε στο Level_2, μεταφερθείτε σε αυτό
+                // Αν δεν βρίσκομαι στο Level_2, μεταφέρομαι σε αυτό
                 DontDestroyOnLoad(other.gameObject); // Διατήρηση του παίκτη
                 SceneManager.sceneLoaded += OnSceneLoadedForLevel2; // Προσθήκη event για μετακίνηση
                 SceneManager.LoadScene(targetSceneForLevel2); // Φόρτωση του Level 2

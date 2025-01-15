@@ -25,7 +25,8 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
 
-        if(Input.GetKeyDown(KeyCode.K) && playerStats.isGrounded() && !animator.GetBool("stabbed")) {
+        if (Input.GetKeyDown(KeyCode.K) && playerStats.isGrounded() && !animator.GetBool("stabbed"))
+        {
             animator.SetTrigger("fight");
 
             Instantiate(punchObject, punchPos.position, Quaternion.identity);
@@ -34,11 +35,14 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.CompareTag("Enemy")) {
-            if(enemyStats != null) {
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            if (enemyStats != null)
+            {
                 enemyStats.take_damage(damage);
             }
-        }        
+        }
     }
 }
