@@ -29,7 +29,7 @@ public class NewBehaviourScript : MonoBehaviour
     private void Attack() {
         animate.SetTrigger("attack");
         Vector2 spawnPosition = transform.position + transform.up * spawnOffset;
-        Instantiate(knifeObject, knifePos.position, Quaternion.identity);
+        Instantiate(knifeObject, spawnPosition, Quaternion.identity);
         cooldownTimer = 0;
     }
 }
