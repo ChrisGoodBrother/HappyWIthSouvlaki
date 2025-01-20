@@ -14,6 +14,9 @@ public class CameraFollower : MonoBehaviour
 
     private void Update()
     {
+
+        if (player == null) return;  // Αν ο παίκτης δεν υπάρχει, δεν κάνουμε τίποτα
+
         //Get camera position and make it equal to the player's
         Vector3 cameraPosition = transform.position;
         cameraPosition.x = player.position.x;

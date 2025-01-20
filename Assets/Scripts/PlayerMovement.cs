@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerBody = GetComponent<Rigidbody2D>();
         playerSpeed = 5f;
-        playerJumpHeight = 14f;
+        playerJumpHeight = 20f;
         animator = GetComponent<Animator>();
         playerStats = GetComponent<PlayerStats>();
         capsuleCollider2D = GetComponent<CapsuleCollider2D>();
