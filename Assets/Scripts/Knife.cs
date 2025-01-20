@@ -31,6 +31,7 @@ public class Knife : MonoBehaviour
         //Rotate the knife sprite to have correct direction
         float rotate = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0,0,rotate + 180);
+
     }
 
     //Destroy knife after 7 seconds in case it doesn't hit anything

@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (player.transform.position.x >= 150) {
+        if (player.transform.position.x >= 150) { 
             bossBorder.SetActive(true);
 
             if(!bossSpawned) {

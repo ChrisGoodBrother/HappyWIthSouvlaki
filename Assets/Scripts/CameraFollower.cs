@@ -14,7 +14,6 @@ public class CameraFollower : MonoBehaviour
 
     private void Update()
     {
-
         //Get camera position and make it equal to the player's
         Vector3 cameraPosition = transform.position;
         cameraPosition.x = player.position.x;
