@@ -4,7 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float playerSpeed;
     [SerializeField] private float playerJumpHeight;
-    [SerializeField] private LayerMask groundLayer;
+    private PlayerStats playerStats;
     private Rigidbody2D playerBody;
     private Animator animator;
     private CapsuleCollider2D capsuleCollider2D;
@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
         playerSpeed = 5f;
         playerJumpHeight = 14f;
         animator = GetComponent<Animator>();
+        playerStats = GetComponent<PlayerStats>();
         capsuleCollider2D = GetComponent<CapsuleCollider2D>();
     }
 
@@ -30,12 +31,8 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(-1,1,1);
 
         //Make player jump if player is on the ground and not already jumping
-        if(Input.GetKey(KeyCode.Space) && isGrounded()) {
+        if(Input.GetKey(KeyCode.Space) && playerStats.isGrounded()) {
             Jumping();
-        }
-
-        if(Input.GetKeyDown(KeyCode.K) && isGrounded() && !animator.GetBool("stabbed")) {
-            animator.SetTrigger("fight");
         }
 
         //Make player run if ShiftKey is pressed
@@ -49,19 +46,12 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("walk", horizontalMovement != 0);
         }
 
-        animator.SetBool("isgrounded", isGrounded());
+        animator.SetBool("isgrounded", playerStats.isGrounded());
     }
 
     //Make player jump
     private void Jumping() {
         playerBody.velocity = new Vector2(playerBody.velocity.x, playerJumpHeight);
         animator.SetTrigger("jump");
-    }
-
-    //Check if player is on the ground and not in the air
-    private bool isGrounded() {
-        RaycastHit2D raycastHit = Physics2D.CapsuleCast(capsuleCollider2D.bounds.center, new Vector2(0.6f, 2), CapsuleDirection2D.Vertical, 0f, Vector2.down , 0.1f, groundLayer);
-  
-        return raycastHit.collider != null;
     }
 }

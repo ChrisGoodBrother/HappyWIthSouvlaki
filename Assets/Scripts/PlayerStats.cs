@@ -6,6 +6,8 @@ public class PlayerStats : MonoBehaviour
 {
     [SerializeField] public float maxHealth;
     [SerializeField] private float currentHealth;
+    private CapsuleCollider2D capsuleCollider2D;
+    [SerializeField] private LayerMask groundLayer;
     private Image healthBarFill;
     private Animator animator;
     private bool isAlive;
@@ -13,6 +15,7 @@ public class PlayerStats : MonoBehaviour
     private void Awake() {
         maxHealth = 100f;
         animator = GetComponent<Animator>();
+        capsuleCollider2D = GetComponent<CapsuleCollider2D>();
     }
 
     private void Start()
@@ -27,9 +30,11 @@ public class PlayerStats : MonoBehaviour
     public void take_damage(float damage)
     {
         currentHealth -= damage;
-        if (currentHealth < 0) {
-            animator.SetTrigger("dead");
+        if (currentHealth <= 0) {
+            if(isAlive)
+                animator.SetTrigger("dead");
             animator.SetBool("alive", false);
+            isAlive = false;
         }
     }
 
@@ -39,5 +44,12 @@ public class PlayerStats : MonoBehaviour
         currentHealth += healthAmount;
         if (currentHealth > maxHealth)
             currentHealth = maxHealth;
+    }
+
+    //Check if player is on the ground and not in the air
+    public bool isGrounded() {
+        RaycastHit2D raycastHit = Physics2D.CapsuleCast(capsuleCollider2D.bounds.center, new Vector2(0.6f, 2), CapsuleDirection2D.Vertical, 0f, Vector2.down , 0.1f, groundLayer);
+  
+        return raycastHit.collider != null;
     }
 }
