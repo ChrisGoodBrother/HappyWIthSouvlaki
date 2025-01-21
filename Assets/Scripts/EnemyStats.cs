@@ -6,23 +6,11 @@ public class EnemyStats : MonoBehaviour
 {
     [SerializeField] public float maxHealth;
     [SerializeField] private float currentHealth;
-    private HealthBarController healthBarController;
-    private bool isAlive;
-
-    public bool getIsAlive() {
-        return isAlive;
-    }
+    [SerializeField] private ParticleSystem explosionEffect;
 
     private void Awake() {
-        maxHealth = 100f;
-        currentHealth = 100f;
-        isAlive = true;
-        healthBarController = GameObject.FindGameObjectWithTag("GameController").GetComponent<HealthBarController>();
-    }
-
-    private void Start() {
-        healthBarController.setEnemyHealthBarActive(true);
-        healthBarController.UpdateHealthBar(currentHealth, maxHealth, "enemy");
+        maxHealth = 300f;
+        currentHealth = 10f;
     }
 
     //Damage Player
@@ -30,13 +18,14 @@ public class EnemyStats : MonoBehaviour
     public void take_damage(float damage)
     {
         currentHealth -= damage;
-        if (currentHealth < 0) {
-            ;
-            //MAKE PARTICLE EXPLOSION ANIMATION FOR DEATH ANIMATION
-            //Destroy(gameObject);
-        }
+        if (currentHealth <= 0) {
+            if (explosionEffect != null) // Έλεγχος για το εφέ της έκρηξης
+            {
+                Instantiate(explosionEffect, transform.position + new Vector3(0, 0, -1), Quaternion.identity);
+            }
 
-        healthBarController.UpdateHealthBar(currentHealth, maxHealth, "enemy");
+            Destroy(gameObject);
+        }
     }
 }
 
