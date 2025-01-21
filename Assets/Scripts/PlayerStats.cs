@@ -8,7 +8,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float currentHealth;
     private CapsuleCollider2D capsuleCollider2D;
     [SerializeField] private LayerMask groundLayer;
-    private Image healthBarFill;
+    [SerializeField] private Image foregroundImage;
     private Animator animator;
     private bool isAlive;
 
@@ -23,6 +23,7 @@ public class PlayerStats : MonoBehaviour
         isAlive = true;
         animator.SetBool("alive", true);
         currentHealth = 10f; //Starting health
+        UpdateHealthBar();
     }
 
     //Damage Player
@@ -36,6 +37,7 @@ public class PlayerStats : MonoBehaviour
             animator.SetBool("alive", false);
             isAlive = false;
         }
+        UpdateHealthBar();
     }
 
     //Add health to Player
@@ -44,6 +46,7 @@ public class PlayerStats : MonoBehaviour
         currentHealth += healthAmount;
         if (currentHealth > maxHealth)
             currentHealth = maxHealth;
+        UpdateHealthBar();
     }
 
     //Check if player is on the ground and not in the air
@@ -51,5 +54,13 @@ public class PlayerStats : MonoBehaviour
         RaycastHit2D raycastHit = Physics2D.CapsuleCast(capsuleCollider2D.bounds.center, new Vector2(0.6f, 2), CapsuleDirection2D.Vertical, 0f, Vector2.down , 0.1f, groundLayer);
   
         return raycastHit.collider != null;
+    }
+
+    private void UpdateHealthBar()
+    {
+        if (foregroundImage != null)
+        {
+            foregroundImage.fillAmount = currentHealth / maxHealth; // Υπολογισμός ποσοστού
+        }
     }
 }
