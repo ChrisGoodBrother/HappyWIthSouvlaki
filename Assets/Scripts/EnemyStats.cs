@@ -6,9 +6,11 @@ public class EnemyStats : MonoBehaviour
 {
     [SerializeField] public float maxHealth;
     [SerializeField] private float currentHealth;
+    [SerializeField] private ParticleSystem explosionEffect;
 
     private void Awake() {
         maxHealth = 300f;
+        currentHealth = 10f;
     }
 
     //Damage Player
@@ -16,10 +18,13 @@ public class EnemyStats : MonoBehaviour
     public void take_damage(float damage)
     {
         currentHealth -= damage;
-        if (currentHealth < 0) {
-            ;
-            //MAKE PARTICLE EXPLOSION ANIMATION FOR DEATH ANIMATION
-            //Destroy(gameObject);
+        if (currentHealth <= 0) {
+            if (explosionEffect != null) // Έλεγχος για το εφέ της έκρηξης
+            {
+                Instantiate(explosionEffect, transform.position + new Vector3(0, 0, -1), Quaternion.identity);
+            }
+
+            Destroy(gameObject);
         }
     }
 }

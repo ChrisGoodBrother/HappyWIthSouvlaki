@@ -24,6 +24,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.K) && playerStats.isGrounded() && !animator.GetBool("stabbed")) {
             animator.SetTrigger("fight");
+            attack();
         }
     }
 
