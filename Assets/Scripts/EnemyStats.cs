@@ -6,7 +6,6 @@ public class EnemyStats : MonoBehaviour
 {
     [SerializeField] public float maxHealth;
     [SerializeField] private float currentHealth;
-    [SerializeField] private Image foregroundImage;
     private HealthBarController healthBarController;
     private bool isAlive;
 
@@ -38,14 +37,6 @@ public class EnemyStats : MonoBehaviour
         }
 
         healthBarController.UpdateHealthBar(currentHealth, maxHealth, "enemy");
-    }
-
-    private void UpdateHealthBar()
-    {
-        if (foregroundImage != null)
-        {
-            foregroundImage.fillAmount = currentHealth / maxHealth; // Υπολογισμός ποσοστού
-        }
     }
 }
 

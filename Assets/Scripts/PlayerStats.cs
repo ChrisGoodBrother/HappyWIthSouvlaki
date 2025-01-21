@@ -8,7 +8,6 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float currentHealth;
     private CapsuleCollider2D capsuleCollider2D;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private Image foregroundImage;
     private HealthBarController healthBarController;
     private Animator animator;
     private bool isAlive;
