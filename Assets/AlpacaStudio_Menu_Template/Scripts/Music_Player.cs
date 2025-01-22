@@ -26,9 +26,6 @@ public class Music_Player : MonoBehaviour {
 	public bool _isMute = false;
 	
 	void Awake () {
-        // Αποφυγή καταστροφής του GameObject όταν αλλάζει η σκηνή
-        DontDestroyOnLoad(gameObject);
-
         _audioSource = GetComponent<AudioSource>();
 		_audioSource.clip = _audioTracks[0];
 		_playingTrack = 0;

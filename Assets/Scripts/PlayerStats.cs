@@ -28,6 +28,10 @@ public class PlayerStats : MonoBehaviour
         return isAlive;
     }
 
+    public void setIsAlive(bool value) {
+        isAlive = value;
+    }
+
     private void Awake() {
         DontDestroyOnLoad(gameObject);
         animator = GetComponent<Animator>();

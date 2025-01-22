@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+        checkPlayerDeath();
         
         SceneManager.sceneLoaded += OnSceneLoaded;   
     }
@@ -79,6 +81,12 @@ public class GameManager : MonoBehaviour
     public void TransitionToRestartMenu()
     {
         SceneManager.LoadScene("RestartScene");
+    }
+    
+    public void checkPlayerDeath() {
+        if(!playerStats.getIsAlive()) {
+            Invoke("TransitionToRestartMenu", 5f);
+        }
     }
 
     void OnDestroy()
