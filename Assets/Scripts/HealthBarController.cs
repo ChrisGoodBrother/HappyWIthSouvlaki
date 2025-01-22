@@ -10,13 +10,15 @@ public class HealthBarController : MonoBehaviour
     [SerializeField] private Image pForegroundImage;
     [SerializeField] private Image eForegroundImage;
 
-    public void setEnemyHealthBarActive(bool active) {
+    public void setEnemyHealthBarActive(bool active)
+    {
         enemyHealthBar.SetActive(active);
     }
 
     private void Update()
-    {            
-        if(playerObject.CompareTag("Player")) {
+    {
+        if (playerObject.CompareTag("Player"))
+        {
             // Κρατάει τη θέση του health bar σταθερή σε σχέση με τον παίκτη, χωρίς περιστροφή
             playerHealthBar.transform.position = playerObject.transform.position + offset; // Ακολουθεί τη θέση του παίκτη με την απόσταση
         }
@@ -24,18 +26,20 @@ public class HealthBarController : MonoBehaviour
 
     public void UpdateHealthBar(float currentHealth, float maxHealth, string character)
     {
-        if(character == "player") {
+        if (character == "player")
+        {
             if (pForegroundImage != null)
             {
                 pForegroundImage.fillAmount = currentHealth / maxHealth; // Υπολογισμός ποσοστού
             }
         }
-        else if(character == "enemy") {
+        else if (character == "enemy")
+        {
             if (eForegroundImage != null)
             {
                 eForegroundImage.fillAmount = currentHealth / maxHealth; // Υπολογισμός ποσοστού
             }
         }
-        
+
     }
 }

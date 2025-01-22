@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +8,8 @@ public class DoorInteraction : MonoBehaviour
     private Vector3 spawnPointPosition = new Vector3(-10, 0, 0); // Σημείο εκκίνησης
     private string sceneName;
 
-    void Update() {
+    void Update()
+    {
         Scene currentScene = SceneManager.GetActiveScene();
         sceneName = currentScene.name;
     }
@@ -18,7 +18,8 @@ public class DoorInteraction : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if(sceneName == "Level_1") {
+            if (sceneName == "Level_1")
+            {
                 DontDestroyOnLoad(other.gameObject); // Διατήρηση του παίκτη
                 SceneManager.sceneLoaded += OnSceneLoaded; // Προσθήκη event για μετακίνηση
                 SceneManager.LoadScene(level2Scene); // Φόρτωση νέας σκηνής

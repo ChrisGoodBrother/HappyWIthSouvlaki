@@ -41,10 +41,10 @@ public class GameManager : MonoBehaviour
     }
 
     void transitionFromMenuToLevel1() {
-
+        //SceneManager.LoadScene(Level_1);
     }
 
     void transitionFromAnyLevelToRestartMenu() {
-
+        //SceneManager.LoadScene("RestartScene");
     }
 }
