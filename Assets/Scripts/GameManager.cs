@@ -2,18 +2,20 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private GameObject player;
+    [SerializeField] private GameObject player;
     [SerializeField] private GameObject enemy;
     private GameObject bossBorder;
     private Vector2 enemySpawnPosition;
     private bool bossSpawned;
+    private BoxCollider2D houseDoor; 
 
     void Awake()
     {
-        enemySpawnPosition = new Vector2(158.5f, -2.2f);
         player = GameObject.FindWithTag("Player");
+        enemySpawnPosition = new Vector2(158.5f, -2.2f);
         bossBorder = GameObject.FindWithTag("BossBorder");
         bossSpawned = false;
+        houseDoor = GameObject.FindWithTag("House").GetComponent<BoxCollider2D>();
     }
 
     void Update()
@@ -24,6 +26,13 @@ public class GameManager : MonoBehaviour
             if(!bossSpawned) {
                 Instantiate(enemy, enemySpawnPosition, Quaternion.identity);
                 bossSpawned = true;
+            }
+            else {
+                enemy = GameObject.FindWithTag("Enemy");
+                if(enemy == null) {
+                    houseDoor.enabled = true;
+                }
+                
             }
         }
     }
