@@ -4,6 +4,9 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject enemy;
+    private string level1 = "Level_1";
+    private string level2 = "Level_2";
+    public Vector3 spawnPointPosition = new Vector3(-10, 0, 0);
     private GameObject bossBorder;
     private Vector2 enemySpawnPosition;
     private bool bossSpawned;
@@ -35,5 +38,13 @@ public class GameManager : MonoBehaviour
                 
             }
         }
+    }
+
+    void transitionFromMenuToLevel1() {
+
+    }
+
+    void transitionFromAnyLevelToRestartMenu() {
+
     }
 }
