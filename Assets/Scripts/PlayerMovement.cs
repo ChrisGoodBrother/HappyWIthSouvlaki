@@ -20,34 +20,37 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update() {
 
-        //Move player left or right according to the input
-        float horizontalMovement = Input.GetAxis("Horizontal"); 
-        playerBody.velocity = new Vector2(horizontalMovement * playerSpeed, playerBody.velocity.y);
+        if(playerStats.getIsAlive()) {
+            //Move player left or right according to the input
+            float horizontalMovement = Input.GetAxis("Horizontal"); 
+            playerBody.velocity = new Vector2(horizontalMovement * playerSpeed, playerBody.velocity.y);
 
-        //Flip Player Model
-        if(horizontalMovement >= 0.01f)
-            transform.localScale = Vector3.one;
-        else if(horizontalMovement <= - 0.01f)
-            transform.localScale = new Vector3(-1,1,1);
+            //Flip Player Model
+            if(horizontalMovement >= 0.01f)
+                transform.localScale = Vector3.one;
+            else if(horizontalMovement <= - 0.01f)
+                transform.localScale = new Vector3(-1,1,1);
 
-        //Make player jump if player is on the ground and not already jumping
-        if(Input.GetKey(KeyCode.Space) && playerStats.isGrounded()) {
-            Jumping();
+            //Make player jump if player is on the ground and not already jumping
+            if(Input.GetKey(KeyCode.Space) && playerStats.isGrounded()) {
+                Jumping();
+            }
+
+            //Make player run if ShiftKey is pressed
+            if(Input.GetKey(KeyCode.LeftShift) && horizontalMovement != 0) {
+                playerBody.velocity = new Vector2(horizontalMovement * playerSpeed * 1.7f, playerBody.velocity.y); //Move player left and right but faster
+                animator.SetBool("walk", false);
+                animator.SetBool("run", true);
+            } 
+            else {
+                animator.SetBool("run", false);
+                animator.SetBool("walk", horizontalMovement != 0);
+            }
+
+            animator.SetBool("isgrounded", playerStats.isGrounded());
         }
-
-        //Make player run if ShiftKey is pressed
-        if(Input.GetKey(KeyCode.LeftShift) && horizontalMovement != 0) {
-            playerBody.velocity = new Vector2(horizontalMovement * playerSpeed * 1.7f, playerBody.velocity.y); //Move player left and right but faster
-            animator.SetBool("walk", false);
-            animator.SetBool("run", true);
-        } 
-        else {
-            animator.SetBool("run", false);
-            animator.SetBool("walk", horizontalMovement != 0);
-        }
-
-        animator.SetBool("isgrounded", playerStats.isGrounded());
     }
+        
 
     //Make player jump
     private void Jumping() {

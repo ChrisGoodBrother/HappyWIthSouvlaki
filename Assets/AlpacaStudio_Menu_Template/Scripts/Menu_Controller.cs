@@ -43,7 +43,6 @@ public class Menu_Controller : MonoBehaviour {
 		PlayerPrefs.SetString("_LastScene", scene.name);
 		UnityEngine.SceneManagement.SceneManager.LoadScene("Level_1");
 		//SceneManager.LoadScene(_sceneToLoadOnPlay);
-
 	}
 
     public void Mute () {

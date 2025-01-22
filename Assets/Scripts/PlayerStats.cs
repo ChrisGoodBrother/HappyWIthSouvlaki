@@ -12,8 +12,24 @@ public class PlayerStats : MonoBehaviour
     private Animator animator;
     private bool isAlive;
 
+    public void setHealth(float health) {
+        currentHealth = health;
+    }
+
+    public void setMaxHealth(float health) {
+        maxHealth = health;
+    }
+
+    public void setPosition(Vector3 pos) {
+        gameObject.transform.position = pos;
+    }
+
+    public bool getIsAlive() {
+        return isAlive;
+    }
+
     private void Awake() {
-        maxHealth = 100f;
+        DontDestroyOnLoad(gameObject);
         animator = GetComponent<Animator>();
         capsuleCollider2D = GetComponent<CapsuleCollider2D>();
         healthBarController = GameObject.FindGameObjectWithTag("GameController").GetComponent<HealthBarController>();

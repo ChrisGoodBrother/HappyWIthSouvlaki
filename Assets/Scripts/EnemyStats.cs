@@ -7,9 +7,18 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] public float maxHealth;
     [SerializeField] private float currentHealth;
     [SerializeField] private ParticleSystem explosionEffect;
+    private ParticleSystem explosion;
     [SerializeField] private Image foregroundImage;
     private HealthBarController healthBarController;
     [SerializeField] private bool isAlive;
+
+    public void setIsAlive(bool value) {
+        isAlive = value;
+    }
+
+    public bool getIsAlive() {
+        return isAlive;
+    }
 
     private void Awake() {
         maxHealth = 100f;
@@ -30,17 +39,11 @@ public class EnemyStats : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth < 0) {
             isAlive = false;
-            if (explosionEffect != null) // Έλεγχος για το εφέ της έκρηξης
-            {
-                Instantiate(explosionEffect, transform.position + new Vector3(0, 0, -1), Quaternion.identity);
-            }
+            Instantiate(explosionEffect, transform.position + new Vector3(0, 0, -1), Quaternion.identity);
             Destroy(gameObject);
+            healthBarController.setEnemyHealthBarActive(false);
         }
         
-    healthBarController.UpdateHealthBar(currentHealth, maxHealth, "enemy");
-    }
-
-    public bool getIsAlive() {
-        return isAlive;
+        healthBarController.UpdateHealthBar(currentHealth, maxHealth, "enemy");
     }
 }

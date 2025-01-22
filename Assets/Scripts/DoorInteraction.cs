@@ -4,43 +4,28 @@ using UnityEngine.SceneManagement;
 
 public class DoorInteraction : MonoBehaviour
 {
-    private string winScene = "WinScene";
-    private string level2Scene = "Level_2"; // Το όνομα της σκηνής
-    private Vector3 spawnPointPosition = new Vector3(-10, 0, 0); // Σημείο εκκίνησης
     private string sceneName;
+    private GameManager gameManager;
 
-    void Update() {
-        Scene currentScene = SceneManager.GetActiveScene();
-        sceneName = currentScene.name;
+    void Awake() {
+        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            if(sceneName == "Level_1") {
-                DontDestroyOnLoad(other.gameObject); // Διατήρηση του παίκτη
-                SceneManager.sceneLoaded += OnSceneLoaded; // Προσθήκη event για μετακίνηση
-                SceneManager.LoadScene(level2Scene); // Φόρτωση νέας σκηνής
+            Scene currentScene = SceneManager.GetActiveScene();
+            if(currentScene.name == "Level_1") {
+                Debug.Log("Transition to Level 2");
+                gameManager.TransitionToNextLevel("Level_2");
             }
-            //else if(sceneName == "Level_2") {
-            //    SceneManager.sceneLoaded += OnSceneLoaded; // Προσθήκη event για μετακίνηση
-            //    SceneManager.LoadScene(winScene); // Φόρτωση νέας σκηνής
-            //}
+            else if(currentScene.name == "Level_2") {
+                Debug.Log("Transition to Win Scene");
+                gameManager.TransitionToNextLevel("WinScene");
+            }
         }
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == level2Scene)
-        {
-            GameObject player = GameObject.FindWithTag("Player");
-            if (player != null)
-            {
-                player.transform.position = spawnPointPosition; // Μετακίνηση του παίκτη
-            }
-
-            SceneManager.sceneLoaded -= OnSceneLoaded; // Αφαίρεση event
-        }
-    }
+    
 }

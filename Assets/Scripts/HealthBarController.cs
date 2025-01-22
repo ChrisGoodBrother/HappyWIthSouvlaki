@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class HealthBarController : MonoBehaviour
 {
     [SerializeField] private GameObject playerObject;
+    private GameObject HealthBars;
     [SerializeField] private GameObject playerHealthBar;
     [SerializeField] private GameObject enemyHealthBar;
     [SerializeField] private Vector3 offset = new Vector3(-0.1f, 0.5f, 0); // Η απόσταση της health bar από τον παίκτη 
@@ -14,11 +15,20 @@ public class HealthBarController : MonoBehaviour
         enemyHealthBar.SetActive(active);
     }
 
+    private void Awake() {
+        DontDestroyOnLoad(gameObject);
+        HealthBars = GameObject.FindWithTag("HealthBars");
+        DontDestroyOnLoad(HealthBars);
+    }
+
     private void Update()
-    {            
-        if(playerObject.CompareTag("Player")) {
-            // Κρατάει τη θέση του health bar σταθερή σε σχέση με τον παίκτη, χωρίς περιστροφή
-            playerHealthBar.transform.position = playerObject.transform.position + offset; // Ακολουθεί τη θέση του παίκτη με την απόσταση
+    {
+        playerObject = GameObject.FindWithTag("Player");
+        if(playerObject != null && playerHealthBar != null) {
+            if(playerObject.CompareTag("Player")) {
+                // Κρατάει τη θέση του health bar σταθερή σε σχέση με τον παίκτη, χωρίς περιστροφή
+                playerHealthBar.transform.position = playerObject.transform.position + offset; // Ακολουθεί τη θέση του παίκτη με την απόσταση
+            }
         }
     }
 
